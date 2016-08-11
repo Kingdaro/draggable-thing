@@ -1,4 +1,4 @@
-Vector = require 'hump.vector'
+Vector = require 'vector'
 
 draggables = {}
 

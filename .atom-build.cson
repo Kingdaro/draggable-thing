@@ -1,2 +1,2 @@
-cmd: 'love'
-args: ['.']
+cmd: 'crescent'
+args: ['-c', '.']

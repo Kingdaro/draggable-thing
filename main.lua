@@ -1,48 +1,50 @@
-local Vector = require 'hump.vector'
-
-local draggables = {}
-
-local function addDraggable(pos, size)
-  table.insert(draggables, {
+local Vector = require('vector')
+local draggables = { }
+local addDraggable
+addDraggable = function(pos, size)
+  return table.insert(draggables, {
     pos = pos,
     size = size,
-    dragging = false,
+    dragging = false
   })
 end
-
-function love.load()
-  addDraggable(Vector(100, 100), Vector(80, 80))
-  addDraggable(Vector(200, 200), Vector(80, 80))
+love.load = function()
+  addDraggable((Vector(100, 100)), (Vector(80, 80)))
+  return addDraggable((Vector(200, 200)), (Vector(80, 80)))
 end
-
-function love.mousepressed(mx, my)
+love.mousepressed = function(mx, my)
   local mouse = Vector(mx, my)
-  for _, thing in ipairs(draggables) do
-    if thing.pos < mouse and mouse < thing.pos + thing.size then
-      thing.dragging = true
-      break
+  for _index_0 = 1, #draggables do
+    local thing = draggables[_index_0]
+    do
+      if thing.pos < mouse and mouse < thing.pos + thing.size then
+        thing.dragging = true
+        break
+      end
     end
   end
 end
-
-function love.mousereleased()
-  for _, thing in ipairs(draggables) do
+love.mousereleased = function()
+  for _index_0 = 1, #draggables do
+    local thing = draggables[_index_0]
     thing.dragging = false
   end
 end
-
-function love.mousemoved(x, y, dx, dy)
-  for _, thing in ipairs(draggables) do
+love.mousemoved = function(x, y, dx, dy)
+  for _index_0 = 1, #draggables do
+    local thing = draggables[_index_0]
     if thing.dragging then
       thing.pos = thing.pos + Vector(dx, dy)
     end
   end
 end
-
-function love.draw()
-  for _, thing in ipairs(draggables) do
-    local x, y = thing.pos:unpack()
-    local w, h = thing.size:unpack()
+love.draw = function()
+  for _index_0 = 1, #draggables do
+    local _des_0 = draggables[_index_0]
+    local pos, size
+    pos, size = _des_0.pos, _des_0.size
+    local x, y = pos:unpack()
+    local w, h = size:unpack()
     love.graphics.rectangle('fill', x, y, w, h)
   end
 end
